@@ -1,10 +1,10 @@
-using System;
-using System.Collections.Generic;
-using System.Linq;
 using System.Threading.Tasks;
 using games.Data;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.Extensions.Logging;
+using Microsoft.AspNetCore.Http;
+using games.Models;
 
 namespace games.Controllers
 {
@@ -14,15 +14,22 @@ namespace games.Controllers
   public class GamesController : ControllerBase
   {
     private readonly GameDbConnection _context;
-    public GamesController(GameDbConnection context)
+    public ILogger<GamesController> Logger { get; }
+
+    public GamesController(
+      GameDbConnection context,
+      ILogger<GamesController> logger
+    )
     {
       _context = context;
+      Logger = logger;
+
     }
     // GET api/games
     [HttpGet]
     public async Task<IActionResult> GetGames()
     {
-        var games =  await _context.Games.ToListAsync();
+        var games = await _context.Games.ToListAsync();
         return Ok(games);
     }
 
@@ -35,9 +42,20 @@ namespace games.Controllers
     }
 
     // POST api/games
+    // [HttpPost]
+    // public void Post([FromBody] string value)
+    // {
+      
+    // }
+
+    // POST: api/games
     [HttpPost]
-    public void Post([FromBody] string value)
+    public async Task<IActionResult> PostGame(Game game)
     {
+        _context.Games.Add(game);
+        await _context.SaveChangesAsync();
+
+        return CreatedAtAction("GetGames", new { id = game.Id }, game);
     }
 
     // PUT api/games/5
@@ -46,10 +64,25 @@ namespace games.Controllers
     {
     }
 
-    // DELETE api/games/5
+    // DELETE: api/games/5
     [HttpDelete("{id}")]
-    public void Delete(int id)
+    public async Task<IActionResult> Delete(int id)
     {
+        Logger.LogInformation("Hello from Games Controllers' Delete Method");            
+
+        var game = await _context.Games.FindAsync(id);
+        
+        if (game == null)
+        {
+            return NotFound();
+        }
+
+        _context.Games.Remove(game);
+        await _context.SaveChangesAsync();
+
+        return Ok(game);
+
     }
+
   }
 }
