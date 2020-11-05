@@ -59,9 +59,39 @@ namespace games.Controllers
     }
 
     // PUT api/games/5
+    // [HttpPut("{id}")]
+    // public void Put(int id, [FromBody] string value)
+    // {
+    // }
+    
+    // PUT: api/TodoItems/5
     [HttpPut("{id}")]
-    public void Put(int id, [FromBody] string value)
+    public async Task<IActionResult> PutGame(int id, Game game)
     {
+        if (id != game.Id)
+        {
+            return BadRequest();
+        }
+
+        _context.Entry(game).State = EntityState.Modified;
+
+        try
+        {
+            await _context.SaveChangesAsync();
+        }
+        catch (DbUpdateConcurrencyException)
+        {
+            if (!await GameExistsAsync(id))
+            {
+                return NotFound();
+            }
+            else
+            {
+                throw;
+            }
+        }
+
+        return NoContent();
     }
 
     // DELETE: api/games/5
@@ -83,6 +113,9 @@ namespace games.Controllers
         return Ok(game);
 
     }
+
+    private async Task<bool> GameExistsAsync(int id) =>
+      await _context.Games.AnyAsync(e => e.Id == id);
 
   }
 }
