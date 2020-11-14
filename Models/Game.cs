@@ -13,8 +13,5 @@ namespace games.Models
 
         public ICollection<Competitor> Competitors { get; set; }
 
-<<<<<<< HEAD
-=======
     }
 }
->>>>>>> many-to-many
