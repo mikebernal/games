@@ -15,7 +15,7 @@ namespace games.Controllers
   public class GamesController : ControllerBase
   {
     private readonly GameDbConnection _context;
-    public ILogger<GamesController> Logger { get; }
+    public ILogger<GamesController> _logger { get; }
 
     public GamesController(
       GameDbConnection context,
@@ -23,7 +23,7 @@ namespace games.Controllers
     )
     {
       _context = context;
-      Logger = logger;
+      _logger = logger;
 
     }
     // GET api/games
@@ -99,7 +99,7 @@ namespace games.Controllers
     [HttpDelete("{id}")]
     public async Task<IActionResult> Delete(int id)
     {
-        Logger.LogInformation("Hello from Games Controllers' Delete Method");            
+        _logger.LogInformation("Hello from Games Controllers' Delete Method");            
 
         var game = await _context.Games.FindAsync(id);
         

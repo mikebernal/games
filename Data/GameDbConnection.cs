@@ -8,6 +8,5 @@ namespace games.Data
     public  GameDbConnection(DbContextOptions<GameDbConnection> options) : base(options) {}
 
     public DbSet<Game> Games { get; set; }
-    public DbSet<Competitor> Competitors { get; set; }
   }
 }
