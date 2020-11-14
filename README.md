@@ -1,16 +1,15 @@
-# Games Service API 
+## Games Service
 
-## TO DO
+### Dev URL
 
-1. Create controllers and routes
-2. Create repository
+- baseUrl: http://localhost
+- port:    5001
+- apiUrl:  api/games
 
-## Nuget Packages
+### API
 
-1. Microsoft.EntityFrameworkCore
-2. Microsoft.EntityFrameworkCore.SqlServer
-2. Microsoft.EntityFrameworkCore.Design
-
-## Tools
-
-1. dotnet-ef
+1. POST addgame(game)    - http://localhost:5001/api/games
+2. GET getgames()        - http://localhost:5001/api/games
+3. GET getgame(id)       - http://localhost:5001/api/games/id
+4. PUT updategame(id)    - http://localhost:5001/api/games/id
+5. DELETE deletegame(id) - http://localhost:5001/api/games/id
