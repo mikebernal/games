@@ -26,13 +26,6 @@ namespace games.Controllers
       _logger = logger;
 
     }
-    // GET api/games
-    [HttpGet]
-    public async Task<IActionResult> GetGames()
-    {
-        var games = await _context.Games.ToListAsync();
-        return Ok(games);
-    }
 
     // GET api/games/5
     [HttpGet("{id}")]
@@ -41,6 +34,15 @@ namespace games.Controllers
         var game = await _context.Games.FirstOrDefaultAsync(x => x.Id == id);
         return Ok(game);
     }
+
+    // GET api/games
+    [HttpGet]
+    public async Task<IActionResult> GetGames()
+    {
+        var games = await _context.Games.ToListAsync();
+        return Ok(games);
+    }
+
 
     // POST api/games
     // [HttpPost]
@@ -65,7 +67,7 @@ namespace games.Controllers
     // {
     // }
     
-    // PUT: api/TodoItems/5
+    // PUT: api/games/5
     [HttpPut("{id}")]
     public async Task<IActionResult> PutGame(int id, Game game)
     {

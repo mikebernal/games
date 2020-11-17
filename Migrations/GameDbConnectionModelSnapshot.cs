@@ -18,63 +18,6 @@ namespace games.Migrations
                 .HasAnnotation("Relational:MaxIdentifierLength", 128)
                 .HasAnnotation("ProductVersion", "5.0.0");
 
-            modelBuilder.Entity("CompetitorGame", b =>
-                {
-                    b.Property<int>("CompetitorsId")
-                        .HasColumnType("int");
-
-                    b.Property<int>("GamesId")
-                        .HasColumnType("int");
-
-                    b.HasKey("CompetitorsId", "GamesId");
-
-                    b.HasIndex("GamesId");
-
-                    b.ToTable("CompetitorGame");
-                });
-
-            modelBuilder.Entity("games.Models.Competitor", b =>
-                {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int")
-                        .UseIdentityColumn();
-
-                    b.Property<string>("Contact")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("Country")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("Description")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("Dob")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("Gender")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("Name")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("Photo")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("Salutation")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("Website")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("email")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.HasKey("Id");
-
-                    b.ToTable("Competitors");
-                });
-
             modelBuilder.Entity("games.Models.Game", b =>
                 {
                     b.Property<int>("Id")
@@ -100,21 +43,6 @@ namespace games.Migrations
                     b.HasKey("Id");
 
                     b.ToTable("Games");
-                });
-
-            modelBuilder.Entity("CompetitorGame", b =>
-                {
-                    b.HasOne("games.Models.Competitor", null)
-                        .WithMany()
-                        .HasForeignKey("CompetitorsId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.HasOne("games.Models.Game", null)
-                        .WithMany()
-                        .HasForeignKey("GamesId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
                 });
 #pragma warning restore 612, 618
         }

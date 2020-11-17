@@ -11,7 +11,7 @@ namespace games.Models
         public string Description { get; set; }
         public string Rules { get; set; }
 
-        public ICollection<Competitor> Competitors { get; set; }
+        // public ICollection<Competitor> Competitors { get; set; }
 
     }
 }
